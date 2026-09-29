@@ -3,14 +3,14 @@
 Prototipo funcional de un portal de noticias desarrollado con HTML, CSS y JavaScript.
 Proyecto académico de Front End (Entrega 2 – Semana 5).
 
-**Demo en línea:** https://TU-USUARIO.github.io/notiflash
-**Repositorio:** https://github.com/TU-USUARIO/notiflash
+**Demo en línea:** https://laurasofiachitiva1-ops.github.io/notiflash
+**Repositorio:** https://github.com/laurasofiachitiva1-ops/notiflash
 
-## Autor
+## Autores
 
-- Nombre: TU NOMBRE COMPLETO
+- Nombre: Laura Sofía Chitiva Lopez, María Isabel Valencia Arboleda, Vittorio Gomez Di Innocentis, Yully Alexandra Calderón Navarro
 - Curso: Front End
-- Profesor: NOMBRE DEL PROFESOR
+- Profesor: John Olarte Ramos
 
 ## Tecnologías
 
