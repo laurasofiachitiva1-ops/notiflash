@@ -1,0 +1,174 @@
+/* Estilos exclusivos de la página noticias (los comunes están en styles.css) */
+
+/* ---------- Título ---------- */
+.titulo {
+  background: #fff;
+  padding: 16px 48px 12px;
+}
+.titulo h1 { font-size: 21px; font-weight: 700; margin-bottom: 6px; }
+.migas { font-size: 10px; color: var(--gris); }
+
+/* ---------- Contenido ---------- */
+main {
+  flex: 1;
+  padding: 20px 48px 56px;
+}
+
+/* Filtros */
+.filtros {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 14px 16px 16px;
+}
+.filtros h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gris);
+  margin-bottom: 13px;
+}
+.check { cursor: pointer; }
+.check input { display: none; }
+.check:has(input:checked) { color: var(--texto); }
+.caja {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid #9aa6b5;
+  border-radius: 3px;
+  background: #fff;
+  position: relative;
+}
+.check input:checked + .caja { border-color: var(--azul); }
+.check input:checked + .caja::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: var(--azul);
+  border-radius: 1px;
+}
+.filtros .bloque { margin-top: 36px; }
+.filtros .bloque h3 { margin-bottom: 8px; }
+.input, .select {
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--borde);
+  background: #f0f4f8;
+  border-radius: 6px;
+  padding: 0 11px;
+  font-size: 11px;
+  color: #8a95a3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font: inherit;
+  color: var(--texto);
+}
+.input input::placeholder { color: #8a95a3; }
+.input button { background: none; border: 0; padding: 0 0 0 6px; display: flex; align-items: center; cursor: pointer; }
+.input svg { width: 14px; height: 14px; stroke: #8a95a3; fill: none; stroke-width: 2; }
+.input button:hover svg { stroke: var(--azul); }
+.select-wrap { position: relative; }
+.orden {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--borde);
+  background: #f0f4f8;
+  border-radius: 6px;
+  padding: 0 30px 0 11px;
+  font-family: inherit;
+  font-size: 11px;
+  color: #6b7684;
+  cursor: pointer;
+  outline: none;
+}
+.select-wrap svg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  stroke: #8a95a3;
+  fill: none;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.btn-aplicar { width: 100%; margin-top: 28px; height: 32px; --bs-btn-font-size: 11px; --bs-btn-border-radius: 6px; }
+.nota { font-size: 8.5px; color: var(--gris); line-height: 1.5; margin-top: 22px; }
+
+/* Listado */
+.listado { min-width: 0; }
+.conteo { font-size: 11.5px; color: var(--gris); margin: 5px 0 12px; }
+.noticia {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  overflow: hidden;
+  padding-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.img {
+  height: 98px;
+  background: var(--placeholder);
+  border-bottom: 1px solid #b6c2cf;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7684;
+}
+.img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px));
+}
+.img span { position: relative; }
+.cuerpo { padding: 10px 11px 0; flex: 1; display: flex; flex-direction: column; }
+.tag {
+  display: inline-block;
+  background: #e3ebf7;
+  color: #2f6de1;
+  font-size: 7.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.cuerpo h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.linea {
+  height: 4px;
+  background: var(--placeholder);
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
+.linea.corta { width: 65%; }
+.resumen { font-size: 10px; line-height: 1.5; color: var(--gris); }
+.acciones { display: flex; gap: 8px; margin-top: auto; padding-top: 11px; }
+.acciones .btn { height: 24px; --bs-btn-font-size: 10px; }
+.ver { width: 78px; }
+.fav { flex: 1; }
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  main { padding: 16px 20px 40px; }
+  .titulo { padding: 16px 20px 12px; }
+}

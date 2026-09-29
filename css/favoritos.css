@@ -1,0 +1,86 @@
+/* Estilos exclusivos de la página favoritos (los comunes están en styles.css) */
+
+/* ---------- Contenido ---------- */
+main { flex: 1; padding: 26px 52px 44px; width: 100%; max-width: 1054px; margin: 0 auto; }
+h1 { font-size: 23px; font-weight: 700; }
+.sub { font-size: 11.5px; color: var(--gris); margin-top: 8px; }
+
+.aviso {
+  background: #fff4d9;
+  border: 1px solid #f0d48a;
+  border-radius: 4px;
+  color: #8a6a12;
+  font-size: 11.5px;
+  padding: 20px 21px;
+  margin-top: 27px;
+}
+
+.fav {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  margin-top: 17px;
+  padding: 12px 13px;
+}
+.aviso + .fav { margin-top: 25px; }
+.img {
+  width: 100%;
+  height: 88px;
+  background: var(--placeholder);
+  border: 1px solid #b6c2cf;
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #6b7684;
+}
+.img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px));
+}
+.img span { position: relative; }
+.info { min-width: 0; }
+.tag {
+  display: inline-block;
+  background: #e3ebf7;
+  color: var(--azul);
+  font-size: 8px;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.info h3 { font-size: 15.5px; font-weight: 700; margin-bottom: 9px; }
+.linea { height: 5px; background: var(--placeholder); border-radius: 3px; margin-bottom: 6px; width: 100%; max-width: 492px; }
+.linea.corta { width: 60%; max-width: 295px; }
+.resumen { font-size: 10.5px; line-height: 1.5; color: var(--gris); max-width: 492px; }
+.fecha { font-size: 9.5px; color: var(--gris); margin-top: 6px; }
+.acciones { display: flex; gap: 8px; justify-content: flex-end; }
+.acciones .btn { width: 97px; height: 30px; --bs-btn-font-size: 10.5px; }
+
+.vacio {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  margin-top: 28px;
+  padding: 24px 20px 21px;
+  text-align: center;
+}
+.vacio p { font-size: 11.5px; color: var(--gris); }
+.vacio strong { display: block; font-size: 11.5px; margin-top: 11px; color: var(--texto); }
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  main { padding: 22px 20px 36px; }
+}
+@media (max-width: 575.98px) {
+  .img { height: 120px; }
+}

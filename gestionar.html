@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestionar noticias | NotiFlash</title>
+<!-- Bootstrap 5 (necesita internet para cargar desde el CDN) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* ===== Botones NotiFlash (incluidos aquí para que funcionen sin archivos externos) ===== */
+/* Botones de NotiFlash (se cargan DESPUÉS de Bootstrap 5).
+   Uso: <a class="btn btn-nf">Texto</a>  +  una variante opcional:
+   btn-nf-borde (contorno azul oscuro) · btn-nf-borde-azul · btn-nf-borde-rojo
+   btn-nf-rojo · btn-nf-gris · btn-nf-blanco */
+
+.btn-nf {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
+  --bs-btn-font-size: 10px;
+  --bs-btn-font-weight: 700;
+  --bs-btn-border-radius: 5px;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #2f6de1;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2559bd;
+  --bs-btn-hover-border-color: #2559bd;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1f4ea6;
+  --bs-btn-active-border-color: #1f4ea6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Estilos propios: los botones se ven bien aunque Bootstrap no cargue */
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--bs-btn-font-size);
+  font-weight: var(--bs-btn-font-weight);
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border: 1px solid var(--bs-btn-border-color);
+  border-radius: var(--bs-btn-border-radius);
+  transition: color .15s, background-color .15s, border-color .15s;
+}
+.btn-nf:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+.btn-nf:active {
+  color: var(--bs-btn-active-color);
+  background-color: var(--bs-btn-active-bg);
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.btn-nf-borde {
+  --bs-btn-color: #16365f;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #16365f;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #16365f;
+  --bs-btn-hover-border-color: #16365f;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #16365f;
+  --bs-btn-active-border-color: #16365f;
+  border-width: 1.5px;
+}
+
+.btn-nf-borde-azul {
+  --bs-btn-color: #2f6de1;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2f6de1;
+  --bs-btn-hover-border-color: #2f6de1;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #2559bd;
+  --bs-btn-active-border-color: #2559bd;
+  border-width: 1.5px;
+}
+
+.btn-nf-borde-rojo {
+  --bs-btn-color: #c0392b;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #c0392b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c0392b;
+  --bs-btn-hover-border-color: #c0392b;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #a53125;
+  --bs-btn-active-border-color: #a53125;
+}
+
+.btn-nf-rojo {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #c0392b;
+  --bs-btn-border-color: #c0392b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #a53125;
+  --bs-btn-hover-border-color: #a53125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #8f2a20;
+  --bs-btn-active-border-color: #8f2a20;
+}
+
+.btn-nf-gris {
+  --bs-btn-color: #6b7684;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #d5dde8;
+  --bs-btn-hover-color: #2b3441;
+  --bs-btn-hover-bg: #f0f4f8;
+  --bs-btn-hover-border-color: #c3ceda;
+  --bs-btn-active-color: #2b3441;
+  --bs-btn-active-bg: #e3ebf7;
+  --bs-btn-active-border-color: #c3ceda;
+}
+
+.btn-nf-blanco {
+  --bs-btn-color: #2f6de1;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #2f6de1;
+  --bs-btn-hover-bg: #e8effc;
+  --bs-btn-hover-border-color: #2f6de1;
+  --bs-btn-active-color: #2f6de1;
+  --bs-btn-active-bg: #dbe6fb;
+  --bs-btn-active-border-color: #2f6de1;
+}
+</style>
+<style>
+  :root {
+    --azul-oscuro: #16365f;
+    --azul: #2f6de1;
+    --dorado: #f0b90b;
+    --fondo: #f0f4f8;
+    --texto: #2b3441;
+    --gris: #6b7684;
+    --borde: #d5dde8;
+    --rojo: #c0392b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Ajuste para que Bootstrap no cambie el diseño */
+  h1, h2, h3, h4, h5, p, ul { margin: 0; padding: 0; }
+  body {
+    line-height: normal;
+    font-family: "DejaVu Sans", Verdana, "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ---------- Header (igual en todas las páginas) ---------- */
+  header {
+    background: var(--azul-oscuro);
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+  }
+  .logo { display: flex; align-items: baseline; gap: 3px; }
+  .logo strong { font-size: 21px; font-weight: 700; }
+  .logo span { font-size: 11.5px; color: #b9c6d8; }
+  .menu-btn { background: none; border: 1px solid #47689a; border-radius: 6px; padding: 5px 8px; color: #fff; display: flex; align-items: center; cursor: pointer; }
+  .menu-btn:hover { background: #2c5083; }
+  .menu-btn svg { width: 22px; height: 22px; }
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    flex-basis: 100%;
+    padding: 10px 0 6px;
+    font-size: 13.5px;
+  }
+  nav > a { padding: 4px 0; color: #e6ecf5; border-bottom: 3px solid transparent; }
+  nav > a:hover { color: #fff; border-bottom-color: #47689a; }
+  nav > a.activo { color: var(--dorado); font-weight: 700; border-bottom-color: var(--dorado); }
+  .buscador {
+    display: flex;
+    align-items: center;
+    background: #2c5083;
+    border: 1px solid #47689a;
+    border-radius: 14px;
+    height: 26px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 6px;
+    padding: 0 4px 0 12px;
+  }
+  .buscador input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #fff;
+    font-size: 11px;
+    font-family: inherit;
+  }
+  .buscador input::placeholder { color: #a9bbd4; }
+  .buscador button { background: none; border: 0; padding: 0 4px; display: flex; align-items: center; cursor: pointer; }
+  .buscador svg { width: 14px; height: 14px; stroke: #cdd9ea; fill: none; stroke-width: 2; }
+  .buscador button:hover svg { stroke: #fff; }
+  /* Pantallas grandes: menú en una sola fila (desde 992 px, breakpoint "lg" de Bootstrap) */
+  @media (min-width: 992px) {
+    header { height: 56px; padding: 0 35px; flex-wrap: nowrap; }
+    nav { flex-direction: row; align-items: center; gap: 30px; flex-basis: auto; padding: 0; }
+    .buscador { width: 170px; margin: 0 0 0 4px; }
+  }
+  /* ---------- Contenido ---------- */
+  main { flex: 1; width: 100%; max-width: 1053px; margin: 0 auto; padding: 28px 52px 40px; }
+  h1 { font-size: 23px; font-weight: 700; }
+  .sub { font-size: 11px; color: var(--gris); margin-top: 8px; margin-bottom: 26px; }
+  .panel {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 18px 20px 20px;
+  }
+  .panel h2 { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+
+  /* Formulario */
+  label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
+  .campo { margin-bottom: 12px; }
+  .input, .textarea {
+    width: 100%;
+    background: #fbfcfe;
+    border: 1px solid #c9d3e0;
+    border-radius: 6px;
+    padding: 0 12px;
+    font: 10px "DejaVu Sans", Verdana, Arial, sans-serif;
+    color: var(--texto);
+    outline: none;
+  }
+  .input { height: 32px; }
+  .input::placeholder { color: #a9b3c0; }
+  .textarea { height: 88px; resize: none; display: block; }
+  .botones { display: flex; gap: 10px; margin-top: 16px; }
+  .botones .btn { height: 36px; --bs-btn-font-size: 10.5px; --bs-btn-border-radius: 6px; }
+  .btn-guardar { width: 150px; }
+  .btn-cancelar { width: 98px; }
+
+  /* Tabla */
+  .tabla-panel { padding-bottom: 20px; }
+  table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 10px; }
+  thead th {
+    background: #e8eef6;
+    color: var(--azul-oscuro);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+    height: 30px;
+    padding: 0 12px;
+  }
+  thead th.centro, td.centro { text-align: center; }
+  tbody tr { border-bottom: 1px solid var(--borde); height: 54.5px; background: #fff; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody tr:first-child { border-top: 1px solid var(--borde); }
+  tbody td { padding: 0 12px; color: var(--gris); font-size: 10px; }
+  tbody td:first-child, thead th:first-child { width: 44px; text-align: center; padding: 0; }
+  .titulo strong { display: block; font-size: 11px; color: var(--texto); margin-bottom: 3px; }
+  .titulo small { font-size: 8.5px; color: var(--gris); }
+  .btn-eliminar { width: 61px; height: 26px; --bs-btn-font-size: 9px; }
+  .col-cat { width: 105px; }
+  .col-fecha { width: 80px; }
+  .col-accion { width: 90px; }
+
+  /* Confirmación */
+  .confirmar {
+    width: 352px;
+    max-width: 100%;
+    margin: 17px auto 0;
+    background: #fff;
+    border: 2px solid #ccd6e3;
+    border-radius: 10px;
+    text-align: center;
+    padding: 19px 20px 11px;
+  }
+  .confirmar h3 { font-size: 15px; font-weight: 700; margin-bottom: 9px; }
+  .confirmar p { font-size: 10.5px; color: var(--gris); line-height: 1.5; }
+  .confirmar .botones { justify-content: center; margin-top: 12px; }
+  .confirmar .btn { height: 32px; }
+  .btn-si { width: 106px; }
+  .confirmar .btn-cancelar { width: 106px; }
+
+
+  /* ---------- Footer (igual en todas las páginas) ---------- */
+  footer {
+    background: var(--azul-oscuro);
+    color: #fff;
+    padding: 21px 16px 40px;
+    position: relative;
+    min-height: 114px;
+  }
+  footer h5 { font-size: 11.5px; color: var(--dorado); font-weight: 700; margin-bottom: 6px; }
+  footer .marca { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  footer p, footer li { font-size: 10.5px; color: #dbe4f0; list-style: none; line-height: 1.35; }
+  footer .eslogan { margin-top: 6px; font-size: 11px; }
+  .redes { display: flex; gap: 8px; margin-top: 4px; }
+  .redes a { width: 26px; height: 26px; border-radius: 50%; background: #2c4c78; display: flex; align-items: center; justify-content: center; color: #fff; }
+  .redes a:hover { background: #3a629b; }
+  .redes svg { width: 13px; height: 13px; }
+  .copy { position: absolute; left: 0; right: 0; bottom: 9px; text-align: center; font-size: 9px; color: #8fa3bf; }
+  @media (min-width: 992px) { footer { padding: 21px 35px 34px; } }
+  /* ---------- Responsive ---------- */
+  @media (max-width: 991.98px) {
+    main { padding: 22px 20px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="inicio.html" class="logo"><strong>NotiFlash</strong><span>| Noticias al instante</span></a>
+  <button class="menu-btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <nav id="menu" class="collapse d-lg-flex">
+    <a href="inicio.html">Inicio</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="favoritos.html">Favoritos</a>
+    <a href="gestionar.html" class="activo">Gestionar</a>
+    <a href="contacto.html">Contacto</a>
+    <form class="buscador" role="search" onsubmit="return false">
+      <input type="text" placeholder="Buscar..." aria-label="Buscar">
+      <button type="submit" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      </button>
+    </form>
+  </nav>
+</header>
+
+<main>
+  <h1>Gestionar noticias</h1>
+  <p class="sub">Aquí se pueden crear noticias nuevas y eliminar las que ya no sirven (mini CRUD).</p>
+
+  <div class="row g-4 layout">
+    <div class="col-12 col-lg-5">
+    <form class="panel form h-100" onsubmit="return false">
+      <h2>Nueva noticia</h2>
+
+      <div class="campo">
+        <label for="titulo">Título *</label>
+        <input class="input" id="titulo" type="text" placeholder="Título de la noticia">
+      </div>
+      <div class="campo">
+        <label for="categoria">Categoría *</label>
+        <input class="input" id="categoria" type="text" placeholder="Seleccione una opción">
+      </div>
+      <div class="campo">
+        <label for="url">URL de la imagen *</label>
+        <input class="input" id="url" type="text" placeholder="https://...">
+      </div>
+      <div class="campo">
+        <label for="desc">Descripción breve *</label>
+        <input class="input" id="desc" type="text" placeholder="Resumen en pocas líneas">
+      </div>
+      <div class="campo">
+        <label for="contenido">Contenido completo *</label>
+        <textarea class="textarea" id="contenido"></textarea>
+      </div>
+
+      <div class="botones">
+        <button type="button" class="btn btn-nf btn-guardar">Guardar noticia</button>
+        <button type="reset" class="btn btn-nf btn-nf-gris btn-cancelar">Cancelar</button>
+      </div>
+    </form>
+    </div>
+
+    <div class="col-12 col-lg-7">
+    <section class="panel tabla-panel h-100">
+      <h2>Noticias publicadas</h2>
+      <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th class="col-cat">Categoría</th>
+            <th class="col-fecha">Fecha</th>
+            <th class="col-accion centro">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="titulo"><strong>Título de la noticia 1</strong><small>creada por el usuario</small></td>
+            <td>Educación</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="titulo"><strong>Título de la noticia 2</strong><small>creada por el usuario</small></td>
+            <td>Tecnología</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="titulo"><strong>Título de la noticia 3</strong><small>creada por el usuario</small></td>
+            <td>Turismo</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="titulo"><strong>Título de la noticia 4</strong><small>creada por el usuario</small></td>
+            <td>Comercial</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="titulo"><strong>Título de la noticia 5</strong><small>creada por el usuario</small></td>
+            <td>Educación</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td class="titulo"><strong>Título de la noticia 6</strong><small>creada por el usuario</small></td>
+            <td>Turismo</td><td>12/09/2026</td>
+            <td class="centro"><a href="#" class="btn btn-nf btn-nf-borde-rojo btn-eliminar" role="button">Eliminar</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+    </div>
+  </div>
+
+  <div class="confirmar">
+    <h3>Confirmar eliminación</h3>
+    <p>¿Seguro que desea eliminar esta noticia?<br>Esta acción no se puede deshacer.</p>
+    <div class="botones">
+      <button type="button" class="btn btn-nf btn-nf-rojo btn-si">Sí, eliminar</button>
+      <button type="button" class="btn btn-nf btn-nf-gris btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="row g-4">
+    <div class="col-12 col-md-3">
+      <div class="marca">NotiFlash</div>
+      <p class="eslogan">Noticias al instante</p>
+    </div>
+    <div class="col-6 col-md-3">
+      <h5>Secciones</h5>
+      <ul>
+        <li>Educación</li>
+        <li>Tecnología</li>
+        <li>Turismo</li>
+        <li>Comercial</li>
+      </ul>
+    </div>
+    <div class="col-6 col-md-3">
+      <h5>Contacto</h5>
+      <p>contacto@notiflash.co</p>
+      <p>Tel. 601 000 0000</p>
+      <p>Bogotá, Colombia</p>
+    </div>
+    <div class="col-12 col-md-3">
+      <h5>Síguenos</h5>
+      <div class="redes">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="copy">© 2026 NotiFlash · Proyecto académico Front End</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* Estilos exclusivos de la página gestionar (los comunes están en styles.css) */
+
+/* ---------- Contenido ---------- */
+main { flex: 1; width: 100%; max-width: 1053px; margin: 0 auto; padding: 28px 52px 40px; }
+h1 { font-size: 23px; font-weight: 700; }
+.sub { font-size: 11px; color: var(--gris); margin-top: 8px; margin-bottom: 26px; }
+.panel {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 18px 20px 20px;
+}
+.panel h2 { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+
+/* Formulario */
+label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
+.campo { margin-bottom: 12px; }
+.input, .textarea {
+  width: 100%;
+  background: #fbfcfe;
+  border: 1px solid #c9d3e0;
+  border-radius: 6px;
+  padding: 0 12px;
+  font: 10px "DejaVu Sans", Verdana, Arial, sans-serif;
+  color: var(--texto);
+  outline: none;
+}
+.input { height: 32px; }
+.input::placeholder { color: #a9b3c0; }
+.textarea { height: 88px; resize: none; display: block; }
+.botones { display: flex; gap: 10px; margin-top: 16px; }
+.botones .btn { height: 36px; --bs-btn-font-size: 10.5px; --bs-btn-border-radius: 6px; }
+.btn-guardar { width: 150px; }
+.btn-cancelar { width: 98px; }
+
+/* Tabla */
+.tabla-panel { padding-bottom: 20px; }
+table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 10px; }
+thead th {
+  background: #e8eef6;
+  color: var(--azul-oscuro);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  height: 30px;
+  padding: 0 12px;
+}
+thead th.centro, td.centro { text-align: center; }
+tbody tr { border-bottom: 1px solid var(--borde); height: 54.5px; background: #fff; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:first-child { border-top: 1px solid var(--borde); }
+tbody td { padding: 0 12px; color: var(--gris); font-size: 10px; }
+tbody td:first-child, thead th:first-child { width: 44px; text-align: center; padding: 0; }
+.titulo strong { display: block; font-size: 11px; color: var(--texto); margin-bottom: 3px; }
+.titulo small { font-size: 8.5px; color: var(--gris); }
+.btn-eliminar { width: 61px; height: 26px; --bs-btn-font-size: 9px; }
+.col-cat { width: 105px; }
+.col-fecha { width: 80px; }
+.col-accion { width: 90px; }
+
+/* Confirmación */
+.confirmar {
+  width: 352px;
+  max-width: 100%;
+  margin: 17px auto 0;
+  background: #fff;
+  border: 2px solid #ccd6e3;
+  border-radius: 10px;
+  text-align: center;
+  padding: 19px 20px 11px;
+}
+.confirmar h3 { font-size: 15px; font-weight: 700; margin-bottom: 9px; }
+.confirmar p { font-size: 10.5px; color: var(--gris); line-height: 1.5; }
+.confirmar .botones { justify-content: center; margin-top: 12px; }
+.confirmar .btn { height: 32px; }
+.btn-si { width: 106px; }
+.confirmar .btn-cancelar { width: 106px; }
+
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  main { padding: 22px 20px 40px; }
+}

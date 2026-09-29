@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "titulo": "Título noticia 1",
+    "categoria": "Educación",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-12",
+    "destacada": true
+  },
+  {
+    "id": 2,
+    "titulo": "Título noticia 2",
+    "categoria": "Tecnología",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-11",
+    "destacada": true
+  },
+  {
+    "id": 3,
+    "titulo": "Título noticia 3",
+    "categoria": "Turismo",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-10",
+    "destacada": true
+  },
+  {
+    "id": 4,
+    "titulo": "Título noticia 4",
+    "categoria": "Comercial",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-09",
+    "destacada": false
+  },
+  {
+    "id": 5,
+    "titulo": "Título noticia 5",
+    "categoria": "Educación",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-08",
+    "destacada": false
+  },
+  {
+    "id": 6,
+    "titulo": "Título noticia 6",
+    "categoria": "Tecnología",
+    "imagen": "",
+    "resumen": "Texto de prueba de la noticia. Aquí irá un breve resumen.",
+    "contenido": "Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información.",
+    "autor": "Redacción NotiFlash",
+    "fecha": "2026-09-07",
+    "destacada": false
+  }
+]

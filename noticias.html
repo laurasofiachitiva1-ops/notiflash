@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Todas las noticias | NotiFlash</title>
+<!-- Bootstrap 5 (necesita internet para cargar desde el CDN) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* ===== Botones NotiFlash (incluidos aquí para que funcionen sin archivos externos) ===== */
+/* Botones de NotiFlash (se cargan DESPUÉS de Bootstrap 5).
+   Uso: <a class="btn btn-nf">Texto</a>  +  una variante opcional:
+   btn-nf-borde (contorno azul oscuro) · btn-nf-borde-azul · btn-nf-borde-rojo
+   btn-nf-rojo · btn-nf-gris · btn-nf-blanco */
+
+.btn-nf {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
+  --bs-btn-font-size: 10px;
+  --bs-btn-font-weight: 700;
+  --bs-btn-border-radius: 5px;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #2f6de1;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2559bd;
+  --bs-btn-hover-border-color: #2559bd;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1f4ea6;
+  --bs-btn-active-border-color: #1f4ea6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Estilos propios: los botones se ven bien aunque Bootstrap no cargue */
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--bs-btn-font-size);
+  font-weight: var(--bs-btn-font-weight);
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border: 1px solid var(--bs-btn-border-color);
+  border-radius: var(--bs-btn-border-radius);
+  transition: color .15s, background-color .15s, border-color .15s;
+}
+.btn-nf:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+.btn-nf:active {
+  color: var(--bs-btn-active-color);
+  background-color: var(--bs-btn-active-bg);
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.btn-nf-borde {
+  --bs-btn-color: #16365f;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #16365f;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #16365f;
+  --bs-btn-hover-border-color: #16365f;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #16365f;
+  --bs-btn-active-border-color: #16365f;
+  border-width: 1.5px;
+}
+
+.btn-nf-borde-azul {
+  --bs-btn-color: #2f6de1;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2f6de1;
+  --bs-btn-hover-border-color: #2f6de1;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #2559bd;
+  --bs-btn-active-border-color: #2559bd;
+  border-width: 1.5px;
+}
+
+.btn-nf-borde-rojo {
+  --bs-btn-color: #c0392b;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #c0392b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c0392b;
+  --bs-btn-hover-border-color: #c0392b;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #a53125;
+  --bs-btn-active-border-color: #a53125;
+}
+
+.btn-nf-rojo {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #c0392b;
+  --bs-btn-border-color: #c0392b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #a53125;
+  --bs-btn-hover-border-color: #a53125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #8f2a20;
+  --bs-btn-active-border-color: #8f2a20;
+}
+
+.btn-nf-gris {
+  --bs-btn-color: #6b7684;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #d5dde8;
+  --bs-btn-hover-color: #2b3441;
+  --bs-btn-hover-bg: #f0f4f8;
+  --bs-btn-hover-border-color: #c3ceda;
+  --bs-btn-active-color: #2b3441;
+  --bs-btn-active-bg: #e3ebf7;
+  --bs-btn-active-border-color: #c3ceda;
+}
+
+.btn-nf-blanco {
+  --bs-btn-color: #2f6de1;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #2f6de1;
+  --bs-btn-hover-color: #2f6de1;
+  --bs-btn-hover-bg: #e8effc;
+  --bs-btn-hover-border-color: #2f6de1;
+  --bs-btn-active-color: #2f6de1;
+  --bs-btn-active-bg: #dbe6fb;
+  --bs-btn-active-border-color: #2f6de1;
+}
+</style>
+<style>
+  :root {
+    --azul-oscuro: #16365f;
+    --azul: #2f6de1;
+    --dorado: #f0b90b;
+    --fondo: #f0f4f8;
+    --texto: #2b3441;
+    --gris: #6b7684;
+    --borde: #d5dde8;
+    --placeholder: #c7d1dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Ajuste para que Bootstrap no cambie el diseño */
+  h1, h2, h3, h4, h5, p, ul { margin: 0; padding: 0; }
+  body {
+    line-height: normal;
+    font-family: "DejaVu Sans", Verdana, "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ---------- Header (igual en todas las páginas) ---------- */
+  header {
+    background: var(--azul-oscuro);
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+  }
+  .logo { display: flex; align-items: baseline; gap: 3px; }
+  .logo strong { font-size: 21px; font-weight: 700; }
+  .logo span { font-size: 11.5px; color: #b9c6d8; }
+  .menu-btn { background: none; border: 1px solid #47689a; border-radius: 6px; padding: 5px 8px; color: #fff; display: flex; align-items: center; cursor: pointer; }
+  .menu-btn:hover { background: #2c5083; }
+  .menu-btn svg { width: 22px; height: 22px; }
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    flex-basis: 100%;
+    padding: 10px 0 6px;
+    font-size: 13.5px;
+  }
+  nav > a { padding: 4px 0; color: #e6ecf5; border-bottom: 3px solid transparent; }
+  nav > a:hover { color: #fff; border-bottom-color: #47689a; }
+  nav > a.activo { color: var(--dorado); font-weight: 700; border-bottom-color: var(--dorado); }
+  .buscador {
+    display: flex;
+    align-items: center;
+    background: #2c5083;
+    border: 1px solid #47689a;
+    border-radius: 14px;
+    height: 26px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 6px;
+    padding: 0 4px 0 12px;
+  }
+  .buscador input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #fff;
+    font-size: 11px;
+    font-family: inherit;
+  }
+  .buscador input::placeholder { color: #a9bbd4; }
+  .buscador button { background: none; border: 0; padding: 0 4px; display: flex; align-items: center; cursor: pointer; }
+  .buscador svg { width: 14px; height: 14px; stroke: #cdd9ea; fill: none; stroke-width: 2; }
+  .buscador button:hover svg { stroke: #fff; }
+  /* Pantallas grandes: menú en una sola fila (desde 992 px, breakpoint "lg" de Bootstrap) */
+  @media (min-width: 992px) {
+    header { height: 56px; padding: 0 35px; flex-wrap: nowrap; }
+    nav { flex-direction: row; align-items: center; gap: 30px; flex-basis: auto; padding: 0; }
+    .buscador { width: 170px; margin: 0 0 0 4px; }
+  }
+  /* ---------- Título ---------- */
+  .titulo {
+    background: #fff;
+    padding: 16px 48px 12px;
+  }
+  .titulo h1 { font-size: 21px; font-weight: 700; margin-bottom: 6px; }
+  .migas { font-size: 10px; color: var(--gris); }
+
+  /* ---------- Contenido ---------- */
+  main {
+    flex: 1;
+    padding: 20px 48px 56px;
+  }
+
+  /* Filtros */
+  .filtros {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 14px 16px 16px;
+  }
+  .filtros h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--gris);
+    margin-bottom: 13px;
+  }
+  .check { cursor: pointer; }
+  .check input { display: none; }
+  .check:has(input:checked) { color: var(--texto); }
+  .caja {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid #9aa6b5;
+    border-radius: 3px;
+    background: #fff;
+    position: relative;
+  }
+  .check input:checked + .caja { border-color: var(--azul); }
+  .check input:checked + .caja::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--azul);
+    border-radius: 1px;
+  }
+  .filtros .bloque { margin-top: 36px; }
+  .filtros .bloque h3 { margin-bottom: 8px; }
+  .input, .select {
+    width: 100%;
+    height: 30px;
+    border: 1px solid var(--borde);
+    background: #f0f4f8;
+    border-radius: 6px;
+    padding: 0 11px;
+    font-size: 11px;
+    color: #8a95a3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .input input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: none;
+    font: inherit;
+    color: var(--texto);
+  }
+  .input input::placeholder { color: #8a95a3; }
+  .input button { background: none; border: 0; padding: 0 0 0 6px; display: flex; align-items: center; cursor: pointer; }
+  .input svg { width: 14px; height: 14px; stroke: #8a95a3; fill: none; stroke-width: 2; }
+  .input button:hover svg { stroke: var(--azul); }
+  .select-wrap { position: relative; }
+  .orden {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 30px;
+    border: 1px solid var(--borde);
+    background: #f0f4f8;
+    border-radius: 6px;
+    padding: 0 30px 0 11px;
+    font-family: inherit;
+    font-size: 11px;
+    color: #6b7684;
+    cursor: pointer;
+    outline: none;
+  }
+  .select-wrap svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: #8a95a3;
+    fill: none;
+    stroke-width: 1.5;
+    pointer-events: none;
+  }
+  .btn-aplicar { width: 100%; margin-top: 28px; height: 32px; --bs-btn-font-size: 11px; --bs-btn-border-radius: 6px; }
+  .nota { font-size: 8.5px; color: var(--gris); line-height: 1.5; margin-top: 22px; }
+
+  /* Listado */
+  .listado { min-width: 0; }
+  .conteo { font-size: 11.5px; color: var(--gris); margin: 5px 0 12px; }
+  .noticia {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    overflow: hidden;
+    padding-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  .img {
+    height: 98px;
+    background: var(--placeholder);
+    border-bottom: 1px solid #b6c2cf;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7684;
+  }
+  .img::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(to bottom right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px));
+  }
+  .img span { position: relative; }
+  .cuerpo { padding: 10px 11px 0; flex: 1; display: flex; flex-direction: column; }
+  .tag {
+    display: inline-block;
+    background: #e3ebf7;
+    color: #2f6de1;
+    font-size: 7.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .cuerpo h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .linea {
+    height: 4px;
+    background: var(--placeholder);
+    border-radius: 2px;
+    margin-bottom: 5px;
+  }
+  .linea.corta { width: 65%; }
+  .resumen { font-size: 10px; line-height: 1.5; color: var(--gris); }
+  .acciones { display: flex; gap: 8px; margin-top: auto; padding-top: 11px; }
+  .acciones .btn { height: 24px; --bs-btn-font-size: 10px; }
+  .ver { width: 78px; }
+  .fav { flex: 1; }
+
+  /* ---------- Footer (igual en todas las páginas) ---------- */
+  footer {
+    background: var(--azul-oscuro);
+    color: #fff;
+    padding: 21px 16px 40px;
+    position: relative;
+    min-height: 114px;
+  }
+  footer h5 { font-size: 11.5px; color: var(--dorado); font-weight: 700; margin-bottom: 6px; }
+  footer .marca { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  footer p, footer li { font-size: 10.5px; color: #dbe4f0; list-style: none; line-height: 1.35; }
+  footer .eslogan { margin-top: 6px; font-size: 11px; }
+  .redes { display: flex; gap: 8px; margin-top: 4px; }
+  .redes a { width: 26px; height: 26px; border-radius: 50%; background: #2c4c78; display: flex; align-items: center; justify-content: center; color: #fff; }
+  .redes a:hover { background: #3a629b; }
+  .redes svg { width: 13px; height: 13px; }
+  .copy { position: absolute; left: 0; right: 0; bottom: 9px; text-align: center; font-size: 9px; color: #8fa3bf; }
+  @media (min-width: 992px) { footer { padding: 21px 35px 34px; } }
+  /* ---------- Responsive ---------- */
+  @media (max-width: 991.98px) {
+    main { padding: 16px 20px 40px; }
+    .titulo { padding: 16px 20px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="inicio.html" class="logo"><strong>NotiFlash</strong><span>| Noticias al instante</span></a>
+  <button class="menu-btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <nav id="menu" class="collapse d-lg-flex">
+    <a href="inicio.html">Inicio</a>
+    <a href="noticias.html" class="activo">Noticias</a>
+    <a href="favoritos.html">Favoritos</a>
+    <a href="gestionar.html">Gestionar</a>
+    <a href="contacto.html">Contacto</a>
+    <form class="buscador" role="search" onsubmit="return false">
+      <input type="text" placeholder="Buscar..." aria-label="Buscar">
+      <button type="submit" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      </button>
+    </form>
+  </nav>
+</header>
+
+<section class="titulo">
+  <h1>Todas las noticias</h1>
+  <div class="migas">Inicio &gt; Noticias</div>
+</section>
+
+<main>
+ <div class="row g-4">
+  <aside class="col-12 col-lg-3">
+   <div class="filtros">
+    <h3>Filtrar por categoría</h3>
+    <label class="check"><input type="checkbox" name="cat" value="todas" checked><span class="caja"></span>Todas</label>
+    <label class="check"><input type="checkbox" name="cat" value="educacion"><span class="caja"></span>Educación</label>
+    <label class="check"><input type="checkbox" name="cat" value="tecnologia"><span class="caja"></span>Tecnología</label>
+    <label class="check"><input type="checkbox" name="cat" value="turismo"><span class="caja"></span>Turismo</label>
+    <label class="check"><input type="checkbox" name="cat" value="comercial"><span class="caja"></span>Comercial</label>
+
+    <div class="bloque">
+      <h3>Buscar por título</h3>
+      <div class="input">
+        <input type="text" id="buscar" placeholder="Escribe una palabra..." aria-label="Buscar por título">
+        <button type="button" id="btn-buscar" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="bloque" style="margin-top:26px">
+      <h3>Ordenar por</h3>
+      <div class="select-wrap">
+        <select id="orden" class="orden" aria-label="Ordenar por">
+          <option value="recientes" selected>Más recientes</option>
+          <option value="antiguas">Más antiguas</option>
+          <option value="az">Título (A-Z)</option>
+          <option value="za">Título (Z-A)</option>
+          <option value="cat-tecnologia">Por categoría: Tecnología</option>
+          <option value="cat-educacion">Por categoría: Educación</option>
+          <option value="cat-turismo">Por categoría: Turismo</option>
+          <option value="cat-comercial">Por categoría: Comercial</option>
+        </select>
+        <svg viewBox="0 0 16 16"><polyline points="2,5 8,11 14,5"/></svg>
+      </div>
+    </div>
+
+    <button class="btn btn-nf btn-aplicar" type="button">Aplicar filtros</button>
+   </div>
+  </aside>
+
+  <div class="col-12 col-lg-9 listado">
+    <p class="conteo">Se encontraron 6 noticias</p>
+    <div class="row g-3">
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Educación</span>
+          <h4>Título noticia 1</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Tecnología</span>
+          <h4>Título noticia 2</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Turismo</span>
+          <h4>Título noticia 3</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Comercial</span>
+          <h4>Título noticia 4</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Educación</span>
+          <h4>Título noticia 5</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4">
+      <article class="noticia h-100">
+        <div class="img"><span>imagen</span></div>
+        <div class="cuerpo">
+          <span class="tag">Tecnología</span>
+          <h4>Título noticia 6</h4>
+          <p class="resumen">Texto de prueba de la noticia. Aquí irá un breve resumen.</p>
+          <div class="acciones"><a href="detalle.html" class="btn btn-nf ver" role="button">Ver más</a><a href="#" class="btn btn-nf fav" role="button">+ Favoritos</a></div>
+        </div>
+      </article>
+      </div>
+
+    </div>
+  </div>
+ </div>
+</main>
+
+<footer>
+  <div class="row g-4">
+    <div class="col-12 col-md-3">
+      <div class="marca">NotiFlash</div>
+      <p class="eslogan">Noticias al instante</p>
+    </div>
+    <div class="col-6 col-md-3">
+      <h5>Secciones</h5>
+      <ul>
+        <li>Educación</li>
+        <li>Tecnología</li>
+        <li>Turismo</li>
+        <li>Comercial</li>
+      </ul>
+    </div>
+    <div class="col-6 col-md-3">
+      <h5>Contacto</h5>
+      <p>contacto@notiflash.co</p>
+      <p>Tel. 601 000 0000</p>
+      <p>Bogotá, Colombia</p>
+    </div>
+    <div class="col-12 col-md-3">
+      <h5>Síguenos</h5>
+      <div class="redes">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="copy">© 2026 NotiFlash · Proyecto académico Front End</div>
+</footer>
+
+<script>
+  // "Todas" se desmarca al elegir una categoría; si no queda ninguna, vuelve a marcarse.
+  const todas = document.querySelector('input[name="cat"][value="todas"]');
+  const cats = Array.from(document.querySelectorAll('input[name="cat"]:not([value="todas"])'));
+  todas.addEventListener('change', () => {
+    if (todas.checked) cats.forEach(c => c.checked = false);
+    else todas.checked = true;
+  });
+  cats.forEach(c => c.addEventListener('change', () => {
+    todas.checked = !cats.some(x => x.checked);
+  }));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
