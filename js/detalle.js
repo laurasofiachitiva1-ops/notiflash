@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       migasEl.innerHTML = `
         <a href="index.html">Inicio</a> &gt; 
         <a href="noticias.html">Noticias</a> &gt; 
-        <a href="noticias.html?cat=${encodeURIComponent(noticia.categoria.toLowerCase())}">${escapeHtml(noticia.categoria)}</a> &gt; 
+        <a href="noticias.html?cat=${encodeURIComponent(sinTildes(noticia.categoria))}">${escapeHtml(noticia.categoria)}</a> &gt; 
         <span>${escapeHtml(noticia.titulo)}</span>
       `;
     }
@@ -101,6 +101,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   } catch (error) {
     console.error(error);
+  }
+
+  // Quita tildes y pasa a minúsculas: "Educación" -> "educacion" (igual que los filtros de noticias.html)
+  function sinTildes(texto) {
+    return (texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
   function actualizarBotonFavorito(btn, noticiaId) {
