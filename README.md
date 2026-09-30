@@ -35,42 +35,60 @@ Proyecto académico de Front End (Entrega 2 – Semana 5).
 - [x] Estructura HTML y CSS de todas las páginas, con diseño responsive
 - [x] Estilos compartidos en un solo archivo (`css/styles.css`)
 - [x] Filtros de categoría en el listado de noticias
-- [ ] Renderizado dinámico de las noticias desde `noticias.json`
-- [ ] Funcionalidad de favoritos (guardada en `localStorage`)
-- [ ] Formularios con validaciones (contacto y gestionar)
-- [ ] Crear y eliminar noticias
-
-> Las casillas se irán marcando a medida que se completen.
+- [x] Renderizado dinámico de las noticias desde `noticias.json`
+- [x] Funcionalidad de favoritos (guardada en `localStorage`)
+- [x] Formularios con validaciones (contacto y gestionar)
+- [x] Crear y eliminar noticias
 
 ## Estructura del proyecto
 
 ```
 notiflash/
-├── index.html
-├── noticias.html
-├── detalle.html
-├── favoritos.html
-├── gestionar.html
-├── contacto.html
-├── noticias.json        # Datos de las noticias
+├── index.html           # Página principal con noticias destacadas dinámicas
+├── noticias.html        # Listado con filtros, búsqueda, ordenación y favoritos
+├── detalle.html         # Vista detallada de la noticia y artículos relacionados
+├── favoritos.html       # Noticias guardadas en localStorage
+├── gestionar.html       # Mini CRUD para crear y eliminar noticias
+├── contacto.html        # Formulario de contacto con validaciones
+├── noticias.json        # Datos iniciales de las noticias
 ├── css/
 │   ├── styles.css       # Estilos comunes: variables, botones, header y footer
 │   └── <pagina>.css     # Estilos propios de cada página
 ├── js/
-│   ├── noticias.js      # Lógica de los filtros
-│   └── contacto.js      # Comportamiento del formulario de contacto
+│   ├── app.js           # Capa de datos compartida, localStorage y utilidades
+│   ├── inicio.js        # Lógica de noticias destacadas en el inicio
+│   ├── noticias.js      # Filtrado dinámico, búsqueda, orden y favoritos
+│   ├── detalle.js       # Renderizado del artículo y noticias relacionadas
+│   ├── favoritos.js     # Gestión y renderizado de noticias guardadas
+│   ├── gestionar.js     # Mini CRUD: crear con validación y eliminar con confirmación
+│   └── contacto.js      # Validaciones y feedback del formulario de contacto
 └── README.md
 ```
 
 ## Cómo ejecutarlo
 
-**Opción 1: en línea.** Abre el enlace de la demo de GitHub Pages.
+Al cargar datos desde `noticias.json` con `fetch`, el navegador requiere ejecutarse sobre un servidor web local (o en línea):
 
-**Opción 2: en tu computador.** Al cargar datos desde `noticias.json` con `fetch`, el navegador exige un servidor; abrir el archivo con doble clic no funciona.
+**Opción A: con Python (sin instalar nada adicional)**
+Abre una terminal en la carpeta del proyecto y ejecuta:
+```bash
+python -m http.server 8000
+```
+Luego abre en tu navegador: [http://localhost:8000](http://localhost:8000)
 
-1. Clona o descarga el repositorio.
-2. Ábrelo en Visual Studio Code e instala la extensión **Live Server**.
-3. Clic derecho sobre `index.html` y elige **Open with Live Server**.
+**Opción B: con Live Server en VS Code**
+1. Abre la carpeta del proyecto en Visual Studio Code.
+2. Instala la extensión **Live Server**.
+3. Clic derecho sobre `index.html` y selecciona **Open with Live Server**.
+
+**Opción C: con Node.js / npx**
+```bash
+npx serve .
+```
+
+**Opción D: en línea**
+Abre el enlace de la demo desplegada en GitHub Pages:
+https://laurasofiachitiva1-ops.github.io/notiflash
 
 ## Estructura de los datos
 

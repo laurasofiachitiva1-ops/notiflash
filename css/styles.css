@@ -235,3 +235,28 @@ a { text-decoration: none; color: inherit; }
   .redes svg { width: 13px; height: 13px; }
   .copy { position: absolute; left: 0; right: 0; bottom: 9px; text-align: center; font-size: 9px; color: #8fa3bf; }
   @media (min-width: 992px) { footer { padding: 21px 35px 34px; } }
+
+/* ---------- Validaciones y estados compartidos ---------- */
+.input.error, .textarea.error, select.input.error {
+  border-color: #e08a84 !important;
+  background-color: #fffaf9 !important;
+}
+.msg-error {
+  font-size: 9.5px;
+  color: var(--rojo);
+  margin-top: 5px;
+  display: block;
+}
+.guardar {
+  cursor: pointer;
+  user-select: none;
+}
+.guardar.activo {
+  color: var(--azul) !important;
+  font-weight: 700;
+}
+.guardar.activo svg {
+  stroke: var(--azul) !important;
+  fill: var(--azul) !important;
+}
+

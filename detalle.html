@@ -4,357 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detalle de la noticia | NotiFlash</title>
-<!-- Bootstrap 5 (necesita internet para cargar desde el CDN) -->
+<!-- Bootstrap 5 (CDN) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-/* ===== Botones NotiFlash (incluidos aquí para que funcionen sin archivos externos) ===== */
-/* Botones de NotiFlash (se cargan DESPUÉS de Bootstrap 5).
-   Uso: <a class="btn btn-nf">Texto</a>  +  una variante opcional:
-   btn-nf-borde (contorno azul oscuro) · btn-nf-borde-azul · btn-nf-borde-rojo
-   btn-nf-rojo · btn-nf-gris · btn-nf-blanco */
-
-.btn-nf {
-  --bs-btn-padding-x: 0;
-  --bs-btn-padding-y: 0;
-  --bs-btn-font-size: 10px;
-  --bs-btn-font-weight: 700;
-  --bs-btn-border-radius: 5px;
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #2f6de1;
-  --bs-btn-border-color: #2f6de1;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #2559bd;
-  --bs-btn-hover-border-color: #2559bd;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #1f4ea6;
-  --bs-btn-active-border-color: #1f4ea6;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  /* Estilos propios: los botones se ven bien aunque Bootstrap no cargue */
-  padding: 0;
-  font-family: inherit;
-  font-size: var(--bs-btn-font-size);
-  font-weight: var(--bs-btn-font-weight);
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--bs-btn-color);
-  background-color: var(--bs-btn-bg);
-  border: 1px solid var(--bs-btn-border-color);
-  border-radius: var(--bs-btn-border-radius);
-  transition: color .15s, background-color .15s, border-color .15s;
-}
-.btn-nf:hover {
-  color: var(--bs-btn-hover-color);
-  background-color: var(--bs-btn-hover-bg);
-  border-color: var(--bs-btn-hover-border-color);
-}
-.btn-nf:active {
-  color: var(--bs-btn-active-color);
-  background-color: var(--bs-btn-active-bg);
-  border-color: var(--bs-btn-active-border-color);
-}
-
-.btn-nf-borde {
-  --bs-btn-color: #16365f;
-  --bs-btn-bg: #fff;
-  --bs-btn-border-color: #16365f;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #16365f;
-  --bs-btn-hover-border-color: #16365f;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #16365f;
-  --bs-btn-active-border-color: #16365f;
-  border-width: 1.5px;
-}
-
-.btn-nf-borde-azul {
-  --bs-btn-color: #2f6de1;
-  --bs-btn-bg: #fff;
-  --bs-btn-border-color: #2f6de1;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #2f6de1;
-  --bs-btn-hover-border-color: #2f6de1;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #2559bd;
-  --bs-btn-active-border-color: #2559bd;
-  border-width: 1.5px;
-}
-
-.btn-nf-borde-rojo {
-  --bs-btn-color: #c0392b;
-  --bs-btn-bg: #fff;
-  --bs-btn-border-color: #c0392b;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #c0392b;
-  --bs-btn-hover-border-color: #c0392b;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #a53125;
-  --bs-btn-active-border-color: #a53125;
-}
-
-.btn-nf-rojo {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #c0392b;
-  --bs-btn-border-color: #c0392b;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #a53125;
-  --bs-btn-hover-border-color: #a53125;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #8f2a20;
-  --bs-btn-active-border-color: #8f2a20;
-}
-
-.btn-nf-gris {
-  --bs-btn-color: #6b7684;
-  --bs-btn-bg: #fff;
-  --bs-btn-border-color: #d5dde8;
-  --bs-btn-hover-color: #2b3441;
-  --bs-btn-hover-bg: #f0f4f8;
-  --bs-btn-hover-border-color: #c3ceda;
-  --bs-btn-active-color: #2b3441;
-  --bs-btn-active-bg: #e3ebf7;
-  --bs-btn-active-border-color: #c3ceda;
-}
-
-.btn-nf-blanco {
-  --bs-btn-color: #2f6de1;
-  --bs-btn-bg: #fff;
-  --bs-btn-border-color: #2f6de1;
-  --bs-btn-hover-color: #2f6de1;
-  --bs-btn-hover-bg: #e8effc;
-  --bs-btn-hover-border-color: #2f6de1;
-  --bs-btn-active-color: #2f6de1;
-  --bs-btn-active-bg: #dbe6fb;
-  --bs-btn-active-border-color: #2f6de1;
-}
-</style>
-<style>
-  :root {
-    --azul-oscuro: #16365f;
-    --azul: #2f6de1;
-    --dorado: #f0b90b;
-    --fondo: #f0f4f8;
-    --texto: #2b3441;
-    --gris: #6b7684;
-    --borde: #d5dde8;
-    --placeholder: #c7d1dc;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  /* Ajuste para que Bootstrap no cambie el diseño */
-  h1, h2, h3, h4, h5, p, ul { margin: 0; padding: 0; }
-  body {
-    line-height: normal;
-    font-family: "DejaVu Sans", Verdana, "Segoe UI", Arial, sans-serif;
-    background: var(--fondo);
-    color: var(--texto);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  a { text-decoration: none; color: inherit; }
-
-  /* ---------- Header (igual en todas las páginas) ---------- */
-  header {
-    background: var(--azul-oscuro);
-    padding: 10px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    color: #fff;
-  }
-  .logo { display: flex; align-items: baseline; gap: 3px; }
-  .logo strong { font-size: 21px; font-weight: 700; }
-  .logo span { font-size: 11.5px; color: #b9c6d8; }
-  .menu-btn { background: none; border: 1px solid #47689a; border-radius: 6px; padding: 5px 8px; color: #fff; display: flex; align-items: center; cursor: pointer; }
-  .menu-btn:hover { background: #2c5083; }
-  .menu-btn svg { width: 22px; height: 22px; }
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    flex-basis: 100%;
-    padding: 10px 0 6px;
-    font-size: 13.5px;
-  }
-  nav > a { padding: 4px 0; color: #e6ecf5; border-bottom: 3px solid transparent; }
-  nav > a:hover { color: #fff; border-bottom-color: #47689a; }
-  nav > a.activo { color: var(--dorado); font-weight: 700; border-bottom-color: var(--dorado); }
-  .buscador {
-    display: flex;
-    align-items: center;
-    background: #2c5083;
-    border: 1px solid #47689a;
-    border-radius: 14px;
-    height: 26px;
-    width: 100%;
-    max-width: 320px;
-    margin-top: 6px;
-    padding: 0 4px 0 12px;
-  }
-  .buscador input {
-    flex: 1;
-    min-width: 0;
-    background: transparent;
-    border: 0;
-    outline: none;
-    color: #fff;
-    font-size: 11px;
-    font-family: inherit;
-  }
-  .buscador input::placeholder { color: #a9bbd4; }
-  .buscador button { background: none; border: 0; padding: 0 4px; display: flex; align-items: center; cursor: pointer; }
-  .buscador svg { width: 14px; height: 14px; stroke: #cdd9ea; fill: none; stroke-width: 2; }
-  .buscador button:hover svg { stroke: #fff; }
-  /* Pantallas grandes: menú en una sola fila (desde 992 px, breakpoint "lg" de Bootstrap) */
-  @media (min-width: 992px) {
-    header { height: 56px; padding: 0 35px; flex-wrap: nowrap; }
-    nav { flex-direction: row; align-items: center; gap: 30px; flex-basis: auto; padding: 0; }
-    .buscador { width: 170px; margin: 0 0 0 4px; }
-  }
-  /* ---------- Contenido ---------- */
-  main { flex: 1; width: 100%; max-width: 1054px; margin: 0 auto; padding: 25px 52px 78px; }
-  .migas { font-size: 10px; color: var(--gris); margin-bottom: 19px; }
-
-  /* Artículo */
-  .articulo {
-    background: #fff;
-    border: 1px solid var(--borde);
-    border-radius: 6px;
-    padding: 26px 20px 43px;
-  }
-  .tag {
-    display: inline-block;
-    background: #e3ebf7;
-    color: var(--azul);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 12px;
-  }
-  .articulo h1 { font-size: 26px; font-weight: 700; margin-top: 8px; }
-  .meta { font-size: 10px; color: var(--gris); margin-top: 8px; }
-
-  .img {
-    background: var(--placeholder);
-    border: 1px solid #b6c2cf;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    color: #6b7684;
-  }
-  .img::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to top right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px)),
-      linear-gradient(to bottom right, transparent calc(50% - 0.5px), #b1bdca 50%, transparent calc(50% + 0.5px));
-  }
-  .img span { position: relative; }
-  .articulo .img { height: 264px; margin-top: 12px; border-radius: 3px; font-size: 11.5px; }
-
-  .texto { margin-top: 27px; }
-  .parrafo { margin-bottom: 20px; }
-  .linea { height: 5px; background: var(--placeholder); border-radius: 3px; margin-bottom: 9px; }
-  .parrafo .linea { margin-bottom: 9.5px; }
-  .linea.corta { width: 60%; }
-  .texto .parrafo { font-size: 12px; line-height: 1.7; color: #4a5768; }
-  hr { opacity: 1; border: 0; border-top: 1px solid var(--borde); margin: 24px 0 21px; }
-
-  .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-  .acciones .btn { height: 39px; --bs-btn-font-size: 10.5px; }
-  .btn-fav { width: 167px; }
-  .btn-contactar { width: 141px; }
-  .btn-compartir { width: 106px; --bs-btn-color: #8a95a3; }
-  .volver { margin-left: auto; font-size: 11.5px; font-weight: 700; color: var(--azul); }
-
-  /* Lateral */
-  .interesa {
-    background: #fff;
-    border: 1px solid var(--borde);
-    border-radius: 6px;
-    padding: 17px 20px 19px;
-  }
-  .interesa h3 { font-size: 14px; font-weight: 700; margin-bottom: 15px; }
-  .item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 9px; }
-  .item:last-child { margin-bottom: 0; }
-  .item .img { width: 58px; height: 41px; flex-shrink: 0; font-size: 11px; border-radius: 3px; }
-  .item .lineas { flex: 1; padding-top: 5px; }
-  .item .linea { height: 5px; margin-bottom: 8px; }
-  .item .linea.corta { width: 60%; }
-
-  .item-texto { font-size: 10px; line-height: 1.4; color: var(--gris); }
-  .suscribete {
-    background: var(--azul);
-    border-radius: 6px;
-    margin-top: 19px;
-    padding: 19px 21px 17px;
-    text-align: center;
-    color: #fff;
-  }
-  .suscribete h3 { font-size: 16px; font-weight: 700; }
-  .suscribete p { font-size: 10px; color: #dbe6fb; margin-top: 10px; }
-  .suscribete .campo {
-    background: #fff;
-    border-radius: 4px;
-    height: 30px;
-    margin-top: 11px;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    text-align: left;
-    font-size: 9.5px;
-    color: #a9b3c0;
-  }
-  .suscribete input.campo { width: 100%; border: 0; outline: none; font-family: inherit; color: var(--texto); }
-  .suscribete input.campo::placeholder { color: #a9b3c0; }
-  .suscribete .btn-sub { width: 100%; height: 28px; margin-top: 8px; --bs-btn-font-size: 10px; --bs-btn-border-radius: 4px; }
-
-  /* ---------- Footer (igual en todas las páginas) ---------- */
-  footer {
-    background: var(--azul-oscuro);
-    color: #fff;
-    padding: 21px 16px 40px;
-    position: relative;
-    min-height: 114px;
-  }
-  footer h5 { font-size: 11.5px; color: var(--dorado); font-weight: 700; margin-bottom: 6px; }
-  footer .marca { font-size: 16px; font-weight: 700; margin-top: 2px; }
-  footer p, footer li { font-size: 10.5px; color: #dbe4f0; list-style: none; line-height: 1.35; }
-  footer .eslogan { margin-top: 6px; font-size: 11px; }
-  .redes { display: flex; gap: 8px; margin-top: 4px; }
-  .redes a { width: 26px; height: 26px; border-radius: 50%; background: #2c4c78; display: flex; align-items: center; justify-content: center; color: #fff; }
-  .redes a:hover { background: #3a629b; }
-  .redes svg { width: 13px; height: 13px; }
-  .copy { position: absolute; left: 0; right: 0; bottom: 9px; text-align: center; font-size: 9px; color: #8fa3bf; }
-  @media (min-width: 992px) { footer { padding: 21px 35px 34px; } }
-  /* ---------- Responsive ---------- */
-  @media (max-width: 991.98px) {
-    main { padding: 22px 20px 40px; }
-  }
-  @media (max-width: 575.98px) {
-    .articulo h1 { font-size: 22px; }
-    .articulo .img { height: 180px; }
-    .volver { margin-left: 0; width: 100%; }
-  }
-</style>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/detalle.css">
 </head>
 <body>
 
 <header>
-  <a href="inicio.html" class="logo"><strong>NotiFlash</strong><span>| Noticias al instante</span></a>
+  <a href="index.html" class="logo"><strong>NotiFlash</strong><span>| Noticias al instante</span></a>
   <button class="menu-btn d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <nav id="menu" class="collapse d-lg-flex">
-    <a href="inicio.html">Inicio</a>
+    <a href="index.html">Inicio</a>
     <a href="noticias.html" class="activo">Noticias</a>
     <a href="favoritos.html">Favoritos</a>
     <a href="gestionar.html">Gestionar</a>
@@ -369,7 +32,7 @@
 </header>
 
 <main>
-  <div class="migas">Inicio &gt; Noticias &gt; Detalle de la noticia</div>
+  <div class="migas"><a href="index.html">Inicio</a> &gt; <a href="noticias.html">Noticias</a> &gt; Detalle de la noticia</div>
 
   <div class="row g-4 layout">
     <div class="col-12 col-lg-8">
@@ -381,16 +44,15 @@
       <div class="img"><span>imagen representativa de la noticia</span></div>
 
       <div class="texto">
-        <p class="parrafo">Este es un texto de prueba para el contenido completo de la noticia. Aquí se mostrará el desarrollo de la información: qué ocurrió, dónde, cuándo y por qué es importante para los lectores de NotiFlash. Más adelante este texto se cargará desde el archivo noticias.json.</p>
-        <p class="parrafo">Este es otro párrafo de prueba. Sirve para ver cómo se acomoda el texto largo dentro de la página, junto a la imagen y a los botones de acción.</p>
+        <p class="parrafo">Cargando contenido de la noticia...</p>
       </div>
 
       <hr>
 
       <div class="acciones">
-        <a href="#" class="btn btn-nf btn-fav" role="button">Agregar a favoritos</a>
+        <button type="button" class="btn btn-nf btn-fav" role="button">Agregar a favoritos</button>
         <a href="contacto.html" class="btn btn-nf btn-nf-borde btn-contactar" role="button">Contactar</a>
-        <a href="#" class="btn btn-nf btn-nf-gris btn-compartir" role="button">Compartir</a>
+        <button type="button" class="btn btn-nf btn-nf-gris btn-compartir" role="button">Compartir</button>
         <a href="noticias.html" class="volver">‹ Volver al listado</a>
       </div>
     </article>
@@ -399,25 +61,13 @@
     <aside class="col-12 col-lg-4">
       <div class="interesa">
         <h3>Te puede interesar</h3>
-        <div class="item">
-          <div class="img"><span>img</span></div>
-          <p class="item-texto">Texto de prueba de una noticia relacionada.</p>
-        </div>
-        <div class="item">
-          <div class="img"><span>img</span></div>
-          <p class="item-texto">Texto de prueba de una noticia relacionada.</p>
-        </div>
-        <div class="item">
-          <div class="img"><span>img</span></div>
-          <p class="item-texto">Texto de prueba de una noticia relacionada.</p>
-        </div>
       </div>
 
       <div class="suscribete">
-        <h3>Suscríbete</h3>
-        <p>Recibe las noticias del día</p>
-        <input class="campo" type="email" placeholder="tu correo@ejemplo.com" aria-label="Correo electrónico">
-        <a href="#" class="btn btn-nf btn-nf-blanco btn-sub" role="button">Suscribirme</a>
+        <h3>Suscríbete al boletín</h3>
+        <p>Recibe en tu correo las noticias más destacadas cada mañana.</p>
+        <input class="campo" type="email" placeholder="tu@correo.com" aria-label="Correo para suscripción">
+        <button type="button" class="btn btn-nf btn-nf-blanco btn-sub" onclick="alert('¡Gracias por suscribirte a NotiFlash!')">Suscribirme</button>
       </div>
     </aside>
   </div>
@@ -456,6 +106,8 @@
   <div class="copy">© 2026 NotiFlash · Proyecto académico Front End</div>
 </footer>
 
+<script src="js/app.js"></script>
+<script src="js/detalle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
