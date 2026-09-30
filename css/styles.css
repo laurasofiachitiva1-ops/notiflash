@@ -260,3 +260,8 @@ a { text-decoration: none; color: inherit; }
   fill: var(--azul) !important;
 }
 
+/* Sin la X */
+.img::before, .mapa::before { display: none; }
+.mapa { overflow: hidden; }
+.mapa iframe { width: 100%; height: 100%; border: 0; display: block; }
+
